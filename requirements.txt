@@ -1,0 +1,30 @@
+# --------------------
+# Core Python utilities
+# --------------------
+python-dotenv
+tqdm
+requests
+
+# --------------------
+# Telegram Scraping (Task 1)
+# --------------------
+telethon
+
+# --------------------
+# Data handling
+# --------------------
+pandas
+numpy
+
+# --------------------
+# Database (PostgreSQL)
+# --------------------
+psycopg2-binary
+sqlalchemy
+
+# --------------------
+# dbt (Task 2)
+# --------------------
+dbt-postgres
+
+# --------------------
