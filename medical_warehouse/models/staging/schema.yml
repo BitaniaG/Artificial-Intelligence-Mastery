@@ -1,0 +1,60 @@
+version: 2
+
+models:
+  - name: stg_telegram_messages
+    description: "Cleaned and standardized Telegram messages from raw ingestion"
+
+    columns:
+      - name: message_pk
+        description: "Surrogate primary key for each Telegram message"
+        tests:
+          - not_null
+          - unique
+
+      - name: channel_name
+        description: "Telegram channel name"
+        tests:
+          - not_null
+
+      - name: message_id
+        description: "Original Telegram message ID"
+
+      - name: message_date
+        description: "Timestamp when the message was sent"
+
+      - name: sender_id
+        description: "Telegram sender ID"
+
+      - name: message_text
+        description: "Message text content"
+
+
+  - name: dim_channels
+    description: "Dimension table for Telegram channels"
+
+    columns:
+      - name: channel_pk
+        tests:
+          - not_null
+          - unique
+
+      - name: channel_name
+        tests:
+          - not_null
+
+  - name: fact_messages
+    description: "Fact table containing Telegram messages"
+
+    columns:
+      - name: message_pk
+        tests:
+          - not_null
+          - unique
+
+      - name: channel_pk
+        tests:
+          - not_null
+
+      - name: message_date
+        tests:
+          - not_null
