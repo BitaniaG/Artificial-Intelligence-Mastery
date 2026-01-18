@@ -1,0 +1,60 @@
+[0m10:27:58.067716 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B0D7F06E90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B0DC29C1D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B0DC29F1D0>]}
+
+
+============================== 10:27:58.637842 | e15c04c5-1173-4d5c-97c1-aebaa84704ea ==============================
+[0m10:27:58.637842 [info ] [MainThread]: Running with dbt=1.11.2
+[0m10:27:58.645839 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'False', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': '.', 'invocation_command': 'dbt run --select stg_telegram_messages --profiles-dir .', 'indirect_selection': 'eager', 'use_colors': 'True', 'use_experimental_parser': 'False', 'log_path': 'logs'}
+[0m10:27:58.649288 [error] [MainThread]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path C:\Users\bia\Desktop\medical-telegram-warehouse\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m10:27:58.721630 [debug] [MainThread]: Command `dbt run` failed at 10:27:58.721630 after 1.86 seconds
+[0m10:27:58.721630 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B0D5903410>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B0DBEF3690>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B0DC233AD0>]}
+[0m10:27:58.727563 [debug] [MainThread]: Flushing usage events
+[0m10:28:04.068044 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m10:29:00.736300 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000293FFC0BE10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029383417410>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029383418C10>]}
+
+
+============================== 10:29:00.741931 | 5efae868-7768-48d8-8f3d-f0384c37df2a ==============================
+[0m10:29:00.741931 [info ] [MainThread]: Running with dbt=1.11.2
+[0m10:29:00.747184 [debug] [MainThread]: running dbt with arguments {'version_check': 'True', 'no_print': 'None', 'static_parser': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'printer_width': '80', 'write_json': 'True', 'empty': 'None', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'profiles_dir': '.', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'use_colors': 'True', 'invocation_command': 'dbt test --select stg_telegram_messages --profiles-dir .', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'log_path': 'logs'}
+[0m10:29:00.749282 [error] [MainThread]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path C:\Users\bia\Desktop\medical-telegram-warehouse\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m10:29:00.753172 [debug] [MainThread]: Command `dbt test` failed at 10:29:00.752175 after 0.28 seconds
+[0m10:29:00.754444 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029383477B50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002938341A590>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000293830D3750>]}
+[0m10:29:00.755815 [debug] [MainThread]: Flushing usage events
+[0m10:29:02.942423 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m16:06:18.315361 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019B0E6C6D50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019B0E6680D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019B0E66A4D0>]}
+
+
+============================== 16:06:18.632264 | d1287c2d-3351-4a6d-afef-9f91c8ec3bea ==============================
+[0m16:06:18.632264 [info ] [MainThread]: Running with dbt=1.11.2
+[0m16:06:18.638339 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'printer_width': '80', 'write_json': 'True', 'empty': 'False', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'profiles_dir': '.', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'invocation_command': 'dbt run --select stg_telegram_messages --profiles-dir .', 'indirect_selection': 'eager', 'use_colors': 'True', 'use_experimental_parser': 'False', 'log_path': 'logs'}
+[0m16:06:18.641342 [error] [MainThread]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path C:\Users\bia\Desktop\medical-telegram-warehouse\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m16:06:18.647131 [debug] [MainThread]: Command `dbt run` failed at 16:06:18.647131 after 1.66 seconds
+[0m16:06:18.647131 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019B0E6680D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019B0E669250>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019B0E405190>]}
+[0m16:06:18.654473 [debug] [MainThread]: Flushing usage events
+[0m16:06:23.061601 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m16:06:46.592442 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002AE6CC374D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002AE6C9753D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002AE6C975510>]}
+
+
+============================== 16:06:46.598989 | 2776a470-8336-4f8f-b5a4-d9b242e06755 ==============================
+[0m16:06:46.598989 [info ] [MainThread]: Running with dbt=1.11.2
+[0m16:06:46.608626 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'printer_width': '80', 'write_json': 'True', 'empty': 'None', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'profiles_dir': '.', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'invocation_command': 'dbt test --select stg_telegram_messages --profiles-dir .', 'use_colors': 'True', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'log_path': 'logs'}
+[0m16:06:46.609622 [error] [MainThread]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path C:\Users\bia\Desktop\medical-telegram-warehouse\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m16:06:47.059759 [debug] [MainThread]: Command `dbt test` failed at 16:06:47.059759 after 1.96 seconds
+[0m16:06:47.059759 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002AE661D3410>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002AE6C975190>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002AE6CBD7290>]}
+[0m16:06:47.068095 [debug] [MainThread]: Flushing usage events
+[0m16:06:48.936034 [debug] [MainThread]: An error was encountered while trying to flush usage events

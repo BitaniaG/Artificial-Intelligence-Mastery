@@ -126,3 +126,60 @@ No data cleaning or transformation is performed at this stage.
 ## Next Steps
 
 The raw data generated in Task 1 will be loaded into PostgreSQL in **Task 2**, where transformations and analytical modeling will be implemented using **dbt**.
+
+
+# Task 2 — Data Warehouse & Analytics (dbt)
+
+## Objective
+Transform raw Telegram message data into a clean, testable, analytics-ready
+data warehouse using dbt and PostgreSQL.
+
+---
+
+## Project Structure
+
+medical_warehouse/
+├── dbt_project.yml
+├── profiles.yml
+├── models/
+│   ├── staging/
+│   │   ├── stg_telegram_messages.sql
+│   │   └── schema.yml
+│   └── marts/
+│       ├── dimensions/
+│       │   └── dim_channels.sql
+│       └── facts/
+│           └── fact_messages.sql
+└── tests/
+
+---
+
+## Data Models
+
+### Staging
+- `stg_telegram_messages`
+  - Cleans raw data
+  - Generates surrogate primary keys
+  - Standardizes column names
+
+### Dimensions
+- `dim_channels`
+  - One row per Telegram channel
+  - Uses surrogate key (`channel_pk`)
+
+### Facts
+- `fact_messages`
+  - One row per Telegram message
+  - Links to `dim_channels`
+  - Filters invalid records (null dates)
+
+---
+
+## Data Quality
+All models are tested using dbt tests:
+- Primary keys: `not_null`, `unique`
+- Foreign keys: `not_null`
+- Core fields validated
+
+```bash
+dbt test --profiles-dir .
