@@ -2,7 +2,8 @@ name: dbt CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
 
 jobs:
@@ -19,28 +20,29 @@ jobs:
         ports:
           - 5433:5432
         options: >-
-          --health-cmd="pg_isready"
+          --health-cmd="pg_isready -U postgres"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install dbt
         run: |
           pip install dbt-postgres
 
-      - name: Run dbt tests
+      - name: Run dbt debug & tests
         working-directory: medical_warehouse
         env:
           DB_HOST: localhost
-          DB_PORT: 5432
+          DB_PORT: 5433
         run: |
           dbt deps
           dbt debug --profiles-dir .

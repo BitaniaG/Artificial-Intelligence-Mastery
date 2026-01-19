@@ -5,8 +5,8 @@ medical_warehouse:
       type: postgres
       host: "{{ env_var('DB_HOST', 'localhost') }}"
       user: postgres
-      password: postgres
-      port: {{ env_var('DB_PORT', 5433) | as_number }}
+      password: "{{ env_var('DB_PASSWORD') }}"
+      port: "{{ env_var('DB_PORT', '5433') | as_number }}"
       dbname: medical_warehouse
       schema: public
       threads: 4
