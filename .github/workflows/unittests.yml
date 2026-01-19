@@ -38,6 +38,6 @@ jobs:
 
       - name: Run dbt tests
         run: |
-          cd medical_warehouse
           dbt deps
+          dbt debug --profiles-dir .
           dbt test --profiles-dir .
