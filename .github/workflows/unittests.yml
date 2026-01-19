@@ -40,4 +40,4 @@ jobs:
         run: |
           cd medical_warehouse
           dbt deps
-          dbt test --profiles-dir .
+          dbt test
