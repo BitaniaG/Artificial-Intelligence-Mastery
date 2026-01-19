@@ -5,8 +5,7 @@ medical_warehouse:
       type: postgres
       host: localhost
       user: postgres
-      password: "{{ env_var('postgres', 'postgres@19') }}"
-      password: postgres@19
+      password: postgres
       port: 5433
       dbname: medical_warehouse
       schema: public
