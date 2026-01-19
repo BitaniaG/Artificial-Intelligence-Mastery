@@ -28,3 +28,9 @@ sqlalchemy
 dbt-postgres
 
 # --------------------
+
+# for task 3 
+# Computer Vision / YOLO
+ultralytics
+opencv-python
+Pillow

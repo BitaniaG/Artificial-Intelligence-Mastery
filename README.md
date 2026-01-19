@@ -183,3 +183,127 @@ All models are tested using dbt tests:
 
 ```bash
 dbt test --profiles-dir .
+
+
+📷 Task 3 — Image Data Enrichment with YOLOv8
+Overview
+
+Task 3 extends the Telegram data platform by enriching scraped image data with computer vision insights. Using YOLOv8 object detection, images from Ethiopian medical Telegram channels are analyzed to identify objects such as products, people, and packaging. The detection results are integrated into the PostgreSQL data warehouse using dbt, enabling advanced visual content analytics.
+
+Objectives
+
+Detect objects in Telegram images using YOLOv8
+
+Store detection results in a structured format (CSV)
+
+Integrate image detections into the data warehouse
+
+Enable analytics on visual content patterns across channels
+
+Folder Structure:
+src/
+└── vision/
+    └── yolo_inference.py
+
+data/
+├── raw/
+│   └── telegram/
+│       └── images/
+│           ├── lobelia4cosmetics/
+│           └── tikvahpharma/
+├── enriched/
+│   └── image_detections/
+│       ├── detections.json
+│       └── detections.csv
+
+medical_warehouse/
+├── seeds/
+│   └── image_detections.csv
+├── models/
+│   ├── staging/
+│   │   └── stg_image_detections.sql
+│   └── marts/
+│       └── facts/
+│           └── fct_image_detections.sql
+
+Object Detection Pipeline
+1. YOLO Inference
+
+The script src/vision/yolo_inference.py:
+
+Loads a pre-trained YOLOv8 model
+
+Iterates through Telegram images by channel
+
+Detects objects per image
+
+Saves detection results with:
+
+channel_name
+
+image_name
+
+object_class
+
+confidence
+
+bounding box coordinates
+
+Output:
+
+detections.json
+
+detections.csv
+
+2. Data Warehouse Integration
+
+The detection CSV is loaded into PostgreSQL using dbt seeds:
+
+dbt seed
+
+
+Two dbt models are then created:
+
+stg_image_detections
+
+Cleans and standardizes detection data
+
+Casts numeric fields
+
+Prepares data for analytics
+
+fct_image_detections
+
+Fact table containing one row per detected object
+
+Enables joins with message and channel dimensions
+
+Supports image-based analytics
+
+Data Quality & Testing
+
+The following dbt tests are implemented:
+
+not_null on key fields (channel, image_name, object_class)
+
+Valid numeric confidence values
+
+Referential integrity where applicable
+
+All tests pass successfully using:
+
+dbt test
+
+Analytical Use Cases Enabled
+
+The enriched dataset enables insights such as:
+
+Most common object types in medical advertisements
+
+Visual content distribution by Telegram channel
+
+Comparison of product-focused vs lifestyle-focused imagery
+
+Confidence analysis of detected objects
+
+These insights enhance understanding of how Ethiopian medical businesses visually market their products on Telegram.
