@@ -2,57 +2,77 @@ import os
 import json
 import logging
 from datetime import datetime
+from pathlib import Path
+
 from telethon import TelegramClient
 from telethon.tl.types import MessageMediaPhoto
 from dotenv import load_dotenv
 from tqdm import tqdm
 
-# Configure logging
-LOG_DIR = "logs"
-os.makedirs(LOG_DIR, exist_ok=True)
+# -------------------------------------------------------------------
+# Logging setup
+# -------------------------------------------------------------------
+LOG_DIR = Path("logs")
+LOG_DIR.mkdir(exist_ok=True)
 
 logging.basicConfig(
-    filename=f"{LOG_DIR}/scraper.log",
+    filename=LOG_DIR / "scraper.log",
     level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
+    format="%(asctime)s - %(levelname)s - %(message)s",
 )
 
-# Load environment variables
+# -------------------------------------------------------------------
+# Environment variables
+# -------------------------------------------------------------------
 load_dotenv()
 
 API_ID = os.getenv("TELEGRAM_API_ID")
 API_HASH = os.getenv("TELEGRAM_API_HASH")
 
 if not API_ID or not API_HASH:
-    raise ValueError("Telegram API credentials not found in .env file")
+    raise ValueError("Missing TELEGRAM_API_ID or TELEGRAM_API_HASH in .env")
 
-# Initialize Telegram client
+# -------------------------------------------------------------------
+# Telegram client
+# -------------------------------------------------------------------
 client = TelegramClient("telegram_session", API_ID, API_HASH)
 
-# Define channels to scrape
+# -------------------------------------------------------------------
+# Channels to scrape
+# -------------------------------------------------------------------
 CHANNELS = [
     "lobelia4cosmetics",
-    "tikvahpharma"
+    "tikvahpharma",
 ]
 
-# Define WHERE data will be stored
-RAW_MESSAGES_DIR = "data/raw/telegram_messages"
-RAW_IMAGES_DIR = "data/raw/images"
+# -------------------------------------------------------------------
+# Data lake paths (IMPORTANT)
+# -------------------------------------------------------------------
+RAW_MESSAGES_DIR = Path("data/raw/telegram/messages")
+RAW_IMAGES_DIR = Path("data/raw/telegram/images")
 
-# scraping function
-async def scrape_channel(channel_name):
+RAW_MESSAGES_DIR.mkdir(parents=True, exist_ok=True)
+RAW_IMAGES_DIR.mkdir(parents=True, exist_ok=True)
+
+# -------------------------------------------------------------------
+# Scraping function
+# -------------------------------------------------------------------
+async def scrape_channel(channel_name: str):
     logging.info(f"Starting scrape for channel: {channel_name}")
 
-    messages = []
     today = datetime.utcnow().strftime("%Y-%m-%d")
+    messages_output_dir = RAW_MESSAGES_DIR / today
+    images_output_dir = RAW_IMAGES_DIR / channel_name
 
-    channel_dir = f"{RAW_MESSAGES_DIR}/{today}"
-    image_dir = f"{RAW_IMAGES_DIR}/{channel_name}"
+    messages_output_dir.mkdir(parents=True, exist_ok=True)
+    images_output_dir.mkdir(parents=True, exist_ok=True)
 
-    os.makedirs(channel_dir, exist_ok=True)
-    os.makedirs(image_dir, exist_ok=True)
+    messages_data = []
 
-    async for message in client.iter_messages(channel_name, limit=200):
+    async for message in tqdm(
+        client.iter_messages(channel_name, limit=200),
+        desc=f"Scraping {channel_name}",
+    ):
         record = {
             "message_id": message.id,
             "channel_name": channel_name,
@@ -60,35 +80,37 @@ async def scrape_channel(channel_name):
             "message_text": message.text,
             "views": message.views,
             "forwards": message.forwards,
-            "has_media": message.media is not None
+            "has_media": message.media is not None,
+            "image_path": None,
         }
 
+        # Download images if present
         if isinstance(message.media, MessageMediaPhoto):
-            image_path = f"{image_dir}/{message.id}.jpg"
+            image_path = images_output_dir / f"{message.id}.jpg"
             await client.download_media(message.media, image_path)
-            record["image_path"] = image_path
-        else:
-            record["image_path"] = None
+            record["image_path"] = str(image_path)
 
-        messages.append(record)
+        messages_data.append(record)
 
-    output_file = f"{channel_dir}/{channel_name}.json"
+    output_file = messages_output_dir / f"{channel_name}.json"
     with open(output_file, "w", encoding="utf-8") as f:
-        json.dump(messages, f, ensure_ascii=False, indent=2)
+        json.dump(messages_data, f, indent=2, ensure_ascii=False)
 
     logging.info(
-        f"Finished scraping {channel_name}. Messages collected: {len(messages)}"
+        f"Finished scraping {channel_name}. Messages: {len(messages_data)}"
     )
 
+# -------------------------------------------------------------------
+# Main
+# -------------------------------------------------------------------
 async def main():
     async with client:
         for channel in CHANNELS:
             try:
                 await scrape_channel(channel)
             except Exception as e:
-                logging.error(f"Error scraping {channel}: {e}")
+                logging.exception(f"Error scraping {channel}: {e}")
 
 if __name__ == "__main__":
     import asyncio
     asyncio.run(main())
-

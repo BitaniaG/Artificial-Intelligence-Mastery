@@ -1514,3 +1514,23 @@
 2026-01-16 18:09:45,052 - INFO - Finished scraping tikvahpharma. Messages collected: 200
 2026-01-16 18:09:45,053 - INFO - Disconnecting from 149.154.167.91:443/TcpFull...
 2026-01-16 18:09:45,054 - INFO - Disconnection from 149.154.167.91:443/TcpFull complete!
+2026-01-19 18:01:39,675 - INFO - Connecting to 149.154.167.91:443/TcpFull...
+2026-01-19 18:01:39,957 - INFO - Connection to 149.154.167.91:443/TcpFull complete!
+2026-01-19 18:01:43,425 - INFO - Starting scrape for channel: lobelia4cosmetics
+2026-01-19 18:01:44,033 - ERROR - Error scraping lobelia4cosmetics: 'async for' requires an object with __aiter__ method, got tqdm
+Traceback (most recent call last):
+  File "C:\Users\bia\Desktop\medical-telegram-warehouse\src\scraper.py", line 110, in main
+    await scrape_channel(channel)
+  File "C:\Users\bia\Desktop\medical-telegram-warehouse\src\scraper.py", line 72, in scrape_channel
+    async for message in tqdm(
+TypeError: 'async for' requires an object with __aiter__ method, got tqdm
+2026-01-19 18:01:44,033 - INFO - Starting scrape for channel: tikvahpharma
+2026-01-19 18:01:44,050 - ERROR - Error scraping tikvahpharma: 'async for' requires an object with __aiter__ method, got tqdm
+Traceback (most recent call last):
+  File "C:\Users\bia\Desktop\medical-telegram-warehouse\src\scraper.py", line 110, in main
+    await scrape_channel(channel)
+  File "C:\Users\bia\Desktop\medical-telegram-warehouse\src\scraper.py", line 72, in scrape_channel
+    async for message in tqdm(
+TypeError: 'async for' requires an object with __aiter__ method, got tqdm
+2026-01-19 18:01:44,050 - INFO - Disconnecting from 149.154.167.91:443/TcpFull...
+2026-01-19 18:01:44,050 - INFO - Disconnection from 149.154.167.91:443/TcpFull complete!
