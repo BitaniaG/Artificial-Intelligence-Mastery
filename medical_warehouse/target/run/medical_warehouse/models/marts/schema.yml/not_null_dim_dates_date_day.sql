@@ -12,9 +12,9 @@
 
 
 
-select message_id
-from "medical_warehouse"."public_staging"."stg_telegram_messages"
-where message_id is null
+select date_day
+from "medical_warehouse"."public_marts"."dim_dates"
+where date_day is null
 
 
 

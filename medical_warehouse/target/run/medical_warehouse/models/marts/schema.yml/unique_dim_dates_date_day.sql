@@ -11,12 +11,12 @@
     
 
 select
-    message_id as unique_field,
+    date_day as unique_field,
     count(*) as n_records
 
-from "medical_warehouse"."public_staging"."stg_telegram_messages"
-where message_id is not null
-group by message_id
+from "medical_warehouse"."public_marts"."dim_dates"
+where date_day is not null
+group by date_day
 having count(*) > 1
 
 
