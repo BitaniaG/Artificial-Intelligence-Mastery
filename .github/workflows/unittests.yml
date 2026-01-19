@@ -37,6 +37,9 @@ jobs:
           pip install dbt-postgres
 
       - name: Run dbt tests
+        working-directory: medical_warehouse
+        env:
+          DB_HOST: localhost
         run: |
           dbt deps
           dbt debug --profiles-dir .

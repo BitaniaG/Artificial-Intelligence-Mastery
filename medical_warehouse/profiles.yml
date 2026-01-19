@@ -3,7 +3,7 @@ medical_warehouse:
   outputs:
     dev:
       type: postgres
-      host: localhost
+      host: "{{ env_var('DB_HOST', 'localhost') }}"
       user: postgres
       password: postgres
       port: 5433
