@@ -307,3 +307,86 @@ Comparison of product-focused vs lifestyle-focused imagery
 Confidence analysis of detected objects
 
 These insights enhance understanding of how Ethiopian medical businesses visually market their products on Telegram.
+
+TASK 4 — FastAPI Analytics API
+Overview
+
+Task 4 exposes the analytical warehouse built in previous tasks through a production-ready REST API using FastAPI.
+The API provides programmatic access to curated dbt models, enabling downstream applications, dashboards, and analytics consumers to query Telegram data and image detection insights.
+
+This task completes the data → warehouse → API pipeline.
+
+Architecture:
+PostgreSQL (Warehouse)
+   │
+   ├── dim_channels
+   ├── fact_messages
+   ├── fct_image_detections
+   │
+FastAPI (src/api)
+   │
+   ├── /channels
+   ├── /messages
+   └── /image-detections
+
+folder structure:
+src/
+└── api/
+    ├── main.py              # FastAPI application entry point
+    ├── database.py          # SQLAlchemy database connection
+    ├── routers/
+    │   ├── channels.py      # Channel endpoints
+    │   ├── messages.py      # Message endpoints
+    │   ├── images.py        # Image detection endpoints
+    │   └── __init__.py
+    └── __init__.py
+src/
+└── api/
+    ├── main.py              # FastAPI application entry point
+    ├── database.py          # SQLAlchemy database connection
+    ├── routers/
+    │   ├── channels.py      # Channel endpoints
+    │   ├── messages.py      # Message endpoints
+    │   ├── images.py        # Image detection endpoints
+    │   └── __init__.py
+    └── __init__.py
+
+Environment Configuration
+Create a .env file in the project root:
+DB_HOST=localhost
+DB_PORT=5433
+DB_USER=postgres
+DB_PASSWORD=your_actual_password
+DB_NAME=medical_warehouse
+Passwords containing special characters are safely encoded using quote_plus.
+
+Running the API
+From the project root:
+python -m uvicorn src.api.main:app --reload
+
+The API will be available at:
+Base URL: http://127.0.0.1:8000
+Swagger UI: http://127.0.0.1:8000/docs
+
+Available Endpoints
+🔹 Channels
+GET /channels
+Returns all Telegram channels in the warehouse.
+
+🔹 Messages
+GET /messages?limit=100
+Returns recent messages across all channels.
+
+🔹 Image Detections
+GET /image-detections
+Returns YOLO object detection results linked to Telegram images.
+
+Verification
+
+Successful setup is confirmed when:
+
+API starts without import errors
+
+Swagger UI loads
+
+All endpoints return data from PostgreSQL
