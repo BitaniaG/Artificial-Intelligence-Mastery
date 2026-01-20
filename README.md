@@ -390,3 +390,68 @@ API starts without import errors
 Swagger UI loads
 
 All endpoints return data from PostgreSQL
+
+Task 5 — Pipeline Orchestration with Dagster
+Overview
+
+Task 5 introduces workflow orchestration using Dagster to automate the end-to-end data pipeline built in previous tasks.
+The Dagster pipeline ensures reliable, repeatable execution of data ingestion, transformation, enrichment, and analytics.
+
+Pipeline Stages:
+Telegram Scraping
+      ↓
+Load Raw Data to PostgreSQL
+      ↓
+dbt Transformations (Staging → Marts)
+      ↓
+YOLO Image Enrichment
+      ↓
+Analytics API Ready
+
+folder structure : 
+dagster/
+├── __init__.py
+├── ops.py          # Pipeline operations
+├── jobs.py         # Dagster job definitions
+├── schedules.py    # Scheduled runs
+└── repository.py   # Dagster repository
+
+Defined Ops:
+  Op	Description
+scrape_telegram_data	Runs Telethon scraper
+load_raw_to_postgres	Loads JSON into PostgreSQL
+run_dbt_models	Executes dbt run + test
+run_yolo_enrichment	Runs YOLO detection pipeline
+
+Dagster job 
+telegram_analytics_job = job(
+    ops=[
+        scrape_telegram_data,
+        load_raw_to_postgres,
+        run_dbt_models,
+        run_yolo_enrichment
+    ]
+)
+
+Scheduling
+
+Daily scheduled execution using Dagster ScheduleDefinition
+
+Ensures continuous refresh of insights
+
+Running Dagster
+dagster dev
+
+Open UI at:
+
+http://localhost:3000
+
+Deliverables
+
+Dagster job definition
+
+Ops with clear dependencies
+
+Scheduled execution
+
+UI screenshots showing successful runs
